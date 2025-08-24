@@ -1,0 +1,34 @@
+# my global config
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['localhost:9093']
+
+# Load rules
+rule_files:
+  - "alert_rules.yml"
+
+scrape_configs:
+  # Prometheus itself
+  - job_name: "prometheus"
+    static_configs:
+      - targets: ["localhost:9090"]
+
+  # Node Exporters via EC2 Service Discovery
+  - job_name: 'ec2-nodes'
+    ec2_sd_configs:
+      - region: ap-south-1   # Mumbai region
+        port: 9100
+    relabel_configs:
+      - source_labels: [__meta_ec2_public_ip]
+        regex: (.*)
+        replacement: ${1}:9100
+        target_label: __address__
+      - source_labels: [__meta_ec2_tag_Name]
+        target_label: instance
+

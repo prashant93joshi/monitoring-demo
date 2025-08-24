@@ -1,0 +1,20 @@
+# Ignore Prometheus data
+prometheus/data/
+
+# Ignore binaries
+prometheus/prometheus
+prometheus/promtool
+node_exporter/node_exporter
+alertmanager/alertmanager
+
+# Logs
+*.log
+
+# System files
+*.pid
+*.sock
+
+# OS junk files
+.DS_Store
+Thumbs.db
+

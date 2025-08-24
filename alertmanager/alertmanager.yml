@@ -1,0 +1,18 @@
+global:
+  smtp_smarthost: 'smtp.gmail.com:587'
+  smtp_from: 'joshi.prashant93@gmail.com'
+  smtp_auth_username: 'joshi.prashant93@gmail.com'
+  smtp_auth_password: 'bvprengeorhmhqbg'   # 16-digit App Password
+
+route:
+  receiver: 'email-alert'
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+
+receivers:
+- name: 'email-alert'
+  email_configs:
+  - to: 'joshi.prashant93@gmail.com'   # You can send to the same email
+
